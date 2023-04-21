@@ -11,9 +11,12 @@
     --light-slate-color: #8e8f99;
     --cornflower-color: #e7e9fc;
     --navy-blue-modal: #2e2f42;
+    --navy-blue-bgmodal: rgba(46, 47, 66, 0.4);
     --grey-color: #2e2f42;
 
     --gap-between-column: 24px;
+    --animation: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --anim-backdrop: 300ms ease-in-out;
 }
 
 /* Прибираємо маркери */
@@ -26,6 +29,7 @@
 /* Прибираємо підкреслення */
 .link {
     text-decoration: none;
+    transition: color var(--animation), background-color var(--animation);
 }
 
 /* Робимо адресу прямим нормальним шрифтом */
@@ -147,6 +151,7 @@ img {
 }
 
 .nav-list .link {
+    position: relative;
     color: var(--navi-blue-color);
     font-weight: 500;
     font-size: 16px;
@@ -157,6 +162,21 @@ img {
 
 .nav-list .current {
     color: var(--ocean-color);
+}
+
+
+
+.nav-list .current::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    /* margin-bottom: 20px; */
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    display: block;
+    background-color: var(--ocean-color);
 }
 
 .nav-list .link:hover,
@@ -221,7 +241,7 @@ img {
     display: block;
     min-width: 169px;
     margin: 0 auto;
-    background: var(--iris-color);
+    background-color: var(--iris-color);
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
     border-radius: 4px;
     cursor: pointer;
@@ -234,11 +254,13 @@ img {
     line-height: 1.5;
     letter-spacing: 0.04em;
     color: var(--white-txt-color);
+
+    transition: background-color var(--animation);
 }
 
 .hero-button:hover,
 .hero-button:focus {
-    background: var(--ocean-color);
+    background-color: var(--ocean-color);
 }
 
 /**
@@ -298,7 +320,7 @@ img {
   |============================
 */
 .team-section {
-    background: var(--cloud-color);
+    background-color: var(--cloud-color);
 }
 
 .team-list {
@@ -307,7 +329,7 @@ img {
 }
 
 .team-item {
-    background: #FFFFFF;
+    background-color: #FFFFFF;
     width: 264px;
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
     border-radius: 0px 0px 4px 4px;
@@ -420,7 +442,7 @@ img {
   |============================
 */
 .footer {
-    background: var(--navi-blue-color);
+    background-color: var(--navi-blue-color);
     padding: 100px 0;
 }
 
@@ -465,7 +487,7 @@ img {
 }
 
 .media-icon-link {
-    background: var(--iris-color);
+    background-color: var(--iris-color);
     color: var(--cloud-color);
     width: 100%;
     height: 100%;
@@ -473,7 +495,7 @@ img {
 
 .media-icon-link:hover,
 .media-icon-link:focus {
-    background: var(--green-color);
+    background-color: var(--green-color);
 }
 
 .media-icon-list {
@@ -495,9 +517,10 @@ img {
 
 .filter-button {
     padding: 12px 24px;
-    background: var(--cloud-color);
+    background-color: var(--cloud-color);
     border: 1px solid var(--cornflower-color);
     border-radius: 4px;
+
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
     font-size: 16px;
@@ -505,11 +528,13 @@ img {
     letter-spacing: 0.04em;
     color: var(--iris-color);
     cursor: pointer;
+
+    transition: color var(--animation), background-color var(--animation), border var(--animation), box-shadow var(--animation);
 }
 
 .filter-button:hover,
 .filter-button:focus {
-    background: var(--ocean-color);
+    background-color: var(--ocean-color);
     color: var(--white-txt-color);
     border: 1px solid transparent;
     box-shadow: 0px 3px 1px rgba(0, 0, 0, 0.1), 0px 2px 1px rgba(0, 0, 0, 0.08), 0px 2px 2px rgba(0, 0, 0, 0.12);
@@ -559,9 +584,112 @@ img {
 
 .card-link {
     display: block;
+    transition: box-shadow var(--animation);
 }
 
 .card-link:hover,
 .card-link:focus {
     box-shadow: 0px 1px 6px rgba(46, 47, 66, 0.08), 0px 1px 1px rgba(46, 47, 66, 0.16), 0px 2px 1px rgba(46, 47, 66, 0.08);
+}
+
+.card-thumb {
+    position: relative;
+    overflow: hidden;
+}
+
+.overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    padding: 40px 32px;
+
+    transform: translateY(100%);
+    transition: transform var(--animation);
+
+    background: var(--iris-color);
+}
+
+.card-link:hover .overlay {
+    transform: translateY(0);
+}
+
+.overlay-text {
+    font-size: 16px;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+
+    color: var(--cloud-color);
+}
+
+/**
+  |============================
+  | Modal
+  |============================
+*/
+.backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--navy-blue-bgmodal);
+
+    transition: opacity var(--anim-backdrop), visibility var(--anim-backdrop);
+}
+
+.modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 408px;
+    min-height: 576px;
+    padding-top: 24px;
+    padding-right: 24px;
+
+    display: flex;
+    justify-content: end;
+
+    background-color: var(--white-bg-color);
+    transform: translate(-50%, -50%) rotate(360deg) scale(1);
+    opacity: 1;
+    transition: transform 300ms, opacity 300ms ease-in;
+}
+
+.backdrop.is-hidden .modal {
+    transform: translate(-50%, -50%) rotate(0) scale(0.2);
+    opacity: 0;
+}
+
+.backdrop.is-hidden {
+    opacity: 0;
+    pointer-events: none;
+    visibility: hidden;
+}
+
+.modal-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 24px;
+    height: 24px;
+
+    background-color: var(--cornflower-color);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    color: var(--navi-blue-color);
+
+    transition: color var(--animation);
+}
+
+.modal-icon {
+    color: currentColor;
+    width: 100%;
+    height: 100%;
+}
+
+.modal-btn:hover {
+    background-color: var(--ocean-color);
+    fill: var(--white-bg-color);
 }
